@@ -35,7 +35,7 @@ function sendNotification (req, res) {
           message: notifcationText
         });
 
-        console.log('NOTIFCAITON', newNotification);
+      
 
         newNotification.save(function(err, notification) {
           if (err) console.error(err);
@@ -61,7 +61,6 @@ function getNotifications(req, res) {
   //get username
   var authUser = req.decoded.user;
 
-  // console.log("authUser is ", authUser);
 
   //find that username in the database
   User.findOne({ username: authUser }, function(err, user) {
@@ -76,8 +75,7 @@ function getNotifications(req, res) {
       var copyIncoming = user.notifications.incoming.slice();
       var copyOutgoing = user.notifications.outgoing.slice();
 
-      // console.log("incoming in notify.controller is :", user.notifications.incoming);
-      // console.log("outgoing in notify.controller is :", user.notifications.outgoing);
+   
 
       //combine both notification arrays that contains IDs together
       var both = copyIncoming.concat(copyOutgoing);
@@ -87,7 +85,7 @@ function getNotifications(req, res) {
 
         if (err) console.error(err);
 
-        // console.log("notification is ",notifications);
+
 
         //filter all the incoming messages with following return format
         var incomingNotif = notifications.map(function(notification) {
@@ -145,29 +143,6 @@ function getNotifications(req, res) {
           return !notification.isResolved;
         });
 
-
-        //save incoming notifications in a filtered array
-        // var respNotifications = notifications.map(function(notification) {
-
-        //   //checks to see if the notification is resolved
-        //   if (!notification.isResolved) {
-        //     return {
-        //       id: notification._id,
-        //       sender: {
-        //         username: notification.sender.username
-        //       },
-        //       isRead: notification.isRead,
-        //       createdAt: notification.createdAt
-        //     };
-        //   }
-        //   //filter all the items that are empty
-        // }).filter(function(item) {
-        //   return Boolean(item);
-        // });
-
-
-        // console.log("JSON sent is ", {incoming : incomingNotif, outgoing : outgoingNotif});
-
         //send back the array in a JSON to client
         res.json({incoming : incomingNotif, outgoing : outgoingNotif});
       });
@@ -217,7 +192,7 @@ function replyNotification(req, res) {
     if(!reply){
       notification.markResolved();
     }
-    console.log('NOTIFICATION', notification);
+ 
     notification.save(function(err, notification) {
       res.json({ success: true });
     });
@@ -247,7 +222,7 @@ function confirmNotification(req, res) {
 function checkUnread(req, res) {
   //what is this decoded? It is an object with User data
   var authUser = req.decoded.user;
-  // console.log('Req.Decoded.User is ', authUser);
+ 
 
   //find the User in the Mongo Database
   User.findOne({ username: authUser }, function(err, user) {

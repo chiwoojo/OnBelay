@@ -28,6 +28,7 @@ angular.module('nova.notifications', ['ngDialog'])
     };
 
     $scope.climbOn = function(climber, reply) {
+
       Notify.replyToClimber(climber, reply)
         .then(function(res) {
           console.log(res);
@@ -43,6 +44,7 @@ angular.module('nova.notifications', ['ngDialog'])
         .catch(function(err) {
           console.error(err);
         });
+        ngDialog.closeAll();
     };
 
     $scope.confirmClimb = function(climber, confirm) {
