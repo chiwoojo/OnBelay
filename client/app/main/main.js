@@ -63,7 +63,7 @@ angular.module('nova.main', ['ngDialog'])
   // };
 
   $scope.sendInvitationToClimb = function(climber, message) {
-    console.log(message);
+
     Notify.sendNotification($scope.targetClimber.username, message)
       .then(function(res) {
         $scope.invitationMessage='';
