@@ -64,7 +64,6 @@ angular.module('nova.notifications', ['ngDialog'])
           console.error(err);
         });
     };
-    
 
     //get all notifications in interval
     $interval($scope.getAllNotifications, 1000);
