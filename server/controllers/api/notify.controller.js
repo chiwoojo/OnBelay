@@ -110,7 +110,7 @@ function getNotifications(req, res) {
           return !!notification;
         })
         .filter(function(notification){
-          return !notification.isResolved;
+          return !notification.isResolved && !notification.isAccepted;
         });
 
 
