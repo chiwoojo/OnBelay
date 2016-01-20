@@ -67,7 +67,9 @@ angular.module('nova', [
     if(info.user.id !== undefined){
       Climbers.getClimberById(info.user.id).then(function(userRes){
         angular.extend(info.user, userRes);
-        info.data.unread = info.user.notifications.incoming.length + info.user.notifications.outgoing.length;
+        var incomingFilter = info.user.notifications.incoming.filter(function(notif){return !notif.isResolved;});
+        var outgoingFilter = info.user.notifications.outgoing.filter(function(notif){return !notif.isResolved;});
+        info.data.unread = incomingFilter.length + outgoingFilter.length;
       });
     }
   };
